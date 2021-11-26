@@ -10,6 +10,7 @@ services:
       default:
     volumes:
       - ".:/app:cached"
+      - "./docker/etc/nginx/conf.d/:/etc/nginx/conf.d"
   api:
     container_name: augmented.api
     image: php:5.6-fpm
