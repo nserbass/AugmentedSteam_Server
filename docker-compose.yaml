@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  nginx:
+    container_name: augmented.nginx
+    image: nginx:1.15-alpine
+    ports:
+      - "8080:80"
+    networks:
+      default:
+    volumes:
+      - ".:/app:cached"
+  api:
+    container_name: augmented.api
+    image: php:5.6-fpm
+    volumes:
+      - ".:/app:cached"
+    environment:
+      - PHP_IDE_CONFIG=serverName=augmented-php
+#      - XDEBUG_CONFIG=remote_host=${IP_ADDRESS} remote_port=9030
+  database:
+    container_name: augmented.database
+    image: mysql:latest
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: password
